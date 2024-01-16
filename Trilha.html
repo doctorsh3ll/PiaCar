@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa da Trilha</title>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+
+        body { margin: 0; padding: 0; }
+
+        .informacoes {
+            width: 95%;
+            height: 15vh;
+            margin-left: 3%;
+        }
+
+        #principal {
+            font-size: 22pt;
+            font-family: "Rubik";
+            position: relative;
+            display: flex;
+            margin-bottom: 3%;
+        }
+
+        #secundario {
+            font-size: 9pt;
+            font-family: "Arial";
+            line-height: 1.4;
+        }
+
+        #map {display: flex; position: relative; top: 0; bottom: 0; width: 100%; height: 35vh; margin-bottom: 6%}
+        .mapboxgl-ctrl-bottom-right {
+            display: none;
+        }
+        .mapboxgl-popup-content {
+            border-radius: 10px;
+        }
+        .mapboxgl-popup-close-button {display: none}
+        #image-container { position: relative; top: 52vh; max-width: 350px; max-height: 350px; margin-top: 2.5%; border-radius: 5%;}
+        #image-container img { width: 100%; height: 100%; }
+        #image-overlay { background-color: rgba(255, 0, 0, 0.9);
+            padding: 10px 10px 19.6vh;
+            border-radius: 8px; }
+        #image-overlay p { margin: 0; }
+        @media (max-width: 600px) {
+            #image-container {
+                max-width: 95vw;
+                max-height: 95vh;
+                margin: 2.5vw;
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+<div class="informacoes">
+<div id="principal">Trilha do Farol</div>
+    <div id="secundario">Moderado <br> Praia da Vila - Imbituba
+    <a href="https://www.mozilla.org/pt-BR/"><br>Me leve até lá!</a>.
+    </div>
+</div>
+<div id="image-container">
+
+    </div>
+
+</div>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoibWFjaGphbyIsImEiOiJjbHI5cjBmNDUwNjJlMmpzcno3MHVoeTJ3In0.N9_idq-8oGg1Ay6SPqXPkw'; // Substitua com sua chave de acesso
+
+    // Coordenadas dos pontos
+    var startCoord = [-48.654098, -28.238385];
+    var middleCoord = [-48.647151, -28.233473];
+    var endCoord = [-48.653389, -28.239079];
+
+    // Inicializar o mapa com estilo "outdoors"
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/outdoors-v11',
+        center: startCoord,
+        zoom: 14.5,
+        minZoom: 14
+    });
+
+    var imagePointCoord = [-48.648, -28.235];
+    var imageUrl = 'https://i.imgur.com/L8voYyN.png';  // Substitua com a URL da sua imagem
+    var linkUrl = 'https://www.google.com/maps/@-28.2344837,-48.6479988,3a,90y,246.11h,52.27t/data=!3m8!1e1!3m6!1sAF1QipOVxNaqo0MmiRycyO6aLxviDyPVmcsc5bO_SH8!2e10!3e12!6shttps:%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipOVxNaqo0MmiRycyO6aLxviDyPVmcsc5bO_SH8%3Dw365-h260-k-no-pi-0-ya180-ro0-fo100!7i14142!8i7071?entry=ttu';  // Substitua com a URL do seu link
+
+    // Adicionar ponto ao mapa
+    map.on('load', function () {
+        map.addLayer({
+            id: 'image-point',
+            type: 'circle',
+            source: {
+                type: 'geojson',
+                data: {
+                    type: 'FeatureCollection',
+                    features: [{
+                        type: 'Feature',
+                        properties: {},
+                        geometry: {
+                            type: 'Point',
+                            coordinates: imagePointCoord
+                        }
+                    }]
+                }
+            },
+            paint: {
+                'circle-radius': 8,
+                'circle-color': '#4286f4'
+            }
+        });
+
+        // Evento de clique no ponto para mostrar a imagem
+        map.on('click', 'image-point', function () {
+            // Adicionar a imagem ao contêiner HTML
+            document.getElementById('image-container').innerHTML =
+                '<div id="image-overlay">' +
+                '<p>Texto junto da imagem</p>' +
+                '<a href="' + linkUrl + '" target="_blank"><img src="' + imageUrl + '" alt="Imagem"></a>' +
+                '</div>';
+        });
+
+        // Mudar o ponteiro do mouse quando estiver sobre o ponto
+        map.on('mouseenter', 'image-point', function () {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+
+        // Mudar o ponteiro do mouse de volta ao sair do ponto
+        map.on('mouseleave', 'image-point', function () {
+            map.getCanvas().style.cursor = '';
+        });
+    });
+
+    var bounds = [
+        [-48.659, -28.245], // Canto superior esquerdo
+        [-48.639, -28.226]  // Canto inferior direito
+    ];
+
+    // Adicionar limites ao evento de movimento do mapa
+    map.on('move', function () {
+        var lngLat = map.getCenter();
+
+        // Verificar se as coordenadas ultrapassam os limites
+        var newLng = Math.min(Math.max(lngLat.lng, bounds[0][0]), bounds[1][0]);
+        var newLat = Math.min(Math.max(lngLat.lat, bounds[0][1]), bounds[1][1]);
+
+        // Atualizar o centro do mapa dentro dos limites
+        if (lngLat.lng !== newLng || lngLat.lat !== newLat) {
+            map.setCenter([newLng, newLat]);
+        }
+    });
+
+    // Criar a rota utilizando Mapbox Directions API
+    var url = 'https://api.mapbox.com/directions/v5/mapbox/walking/' +
+        startCoord[0] + ',' + startCoord[1] + ';' +
+        middleCoord[0] + ',' + middleCoord[1] + ';' +
+        endCoord[0] + ',' + endCoord[1] +
+        '?geometries=geojson&overview=full&access_token=' + mapboxgl.accessToken;
+
+    // Requisição para a API de Direções
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            // Adicionar camada de rota ao mapa
+            map.addSource('route', {
+                type: 'geojson',
+                data: {
+                    type: 'Feature',
+                    properties: {},
+                    geometry: data.routes[0].geometry
+                }
+            });
+
+            map.addLayer({
+                id: 'route',
+                type: 'line',
+                source: 'route',
+                layout: {
+                    'line-join': 'round',
+                    'line-cap': 'round'
+                },
+                paint: {
+                    'line-color': '#2e6903',
+                    'line-width': 5,
+                    'line-opacity': 0.75
+                }
+            });
+
+            // Adicionar camada de pontos para os pontos
+            addPoint('start-point', startCoord, 'Partida/Fim', '#FF7F00');
+            addPoint('middle-point', middleCoord, 'Farol', '#CF2028');
+            addPoint('end-point', endCoord, 'Partida/Fim', '#A100FF');
+        })
+        .catch(error => console.error('Erro:', error));
+
+    // Função para adicionar ponto com pop-up
+    function addPoint(id, coordinates, popupText, color) {
+        map.addLayer({
+            id: id,
+            type: 'circle',
+            source: {
+                type: 'geojson',
+                data: {
+                    type: 'FeatureCollection',
+                    features: [{
+                        type: 'Feature',
+                        properties: {},
+                        geometry: {
+                            type: 'Point',
+                            coordinates: coordinates
+                        }
+                    }]
+                }
+            },
+            paint: {
+                'circle-radius': 8,
+                'circle-color': color
+            }
+        });
+
+        map.on('click', id, function () {
+            new mapboxgl.Popup({ offset: 25 })
+                .setLngLat(coordinates)
+                .setText(popupText + '\n' + coordinates[1].toFixed(6) + ', ' + coordinates[0].toFixed(6))
+                .addTo(map);
+        });
+    }
+</script>
+</body>
+</html>

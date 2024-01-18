@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mapa da Trilha</title>
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
-    <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
 
@@ -52,7 +52,7 @@
         #textoS {font-size: 14pt}
         #textoT {font-size: 9pt; font-family: Arial}
 
-        #map {display: flex; position: relative; top: 0; bottom: 0; width: 100%; height: 35vh; margin-bottom: 7.5%}
+        #map {display: flex; position: relative; top: 0; bottom: 0; width: 100%; height: 40vh; margin-bottom: 7.5%}
         .mapboxgl-ctrl-bottom-right {
             display: none;
         }
@@ -98,7 +98,10 @@
         <div id="textop">138 <a id="textoS">m</a> </div>
         <div id="textoT">Ganho de elevação</div>
     </div>
-    <div class="child"></div>
+    <div class="child">
+        <div id="textop">Ponto a Ponto</div>
+        <div id="textoT">Tipo de Trilha</div>
+    </div>
 </div>
 </div>
 <div id="image-container">
@@ -117,7 +120,7 @@
     // Inicializar o mapa com estilo "outdoors"
     var map = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/mapbox/outdoors-v11',
+        style: 'mapbox://styles/machjao/clrjpbew7000m01p272xb9052',
         center: startCoord,
         zoom: 14.5,
         minZoom: 14

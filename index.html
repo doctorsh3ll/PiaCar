@@ -9,12 +9,13 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
 
-        body { margin: 0; padding: 0; }
+        body { margin: 0; padding: 0; color:#142800}
 
         .informacoes {
             width: 95%;
             height: 15vh;
-            margin-left: 3%;
+            margin-left: 4.5%;
+            margin-right: 4.5%;
         }
 
         #principal {
@@ -31,7 +32,27 @@
             line-height: 1.4;
         }
 
-        #map {display: flex; position: relative; top: 0; bottom: 0; width: 100%; height: 35vh; margin-bottom: 6%}
+        .divider {height: 0; margin-top: 7%; margin-bottom: 6%; margin-right: 4.5%; border-bottom: 1px solid #dbdad2;}
+
+        .parent {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .child {
+            flex: 1 0 32%; /* explanation below */
+            margin-right: 3%;
+            margin-top: 3%;
+            height: 8vh;
+            font-family: "Rubik";
+        }
+
+        .ponto {margin: 3px;}
+        #textop {font-size: 20pt; margin-bottom: 1%}
+        #textoS {font-size: 14pt}
+        #textoT {font-size: 9pt; font-family: Arial}
+
+        #map {display: flex; position: relative; top: 0; bottom: 0; width: 100%; height: 35vh; margin-bottom: 7.5%}
         .mapboxgl-ctrl-bottom-right {
             display: none;
         }
@@ -58,9 +79,27 @@
 <div id="map"></div>
 <div class="informacoes">
 <div id="principal">Trilha do Farol</div>
-    <div id="secundario">Moderado <br> Praia da Vila - Imbituba
-    <a href="https://www.mozilla.org/pt-BR/"><br>Me leve até lá!</a>.
+    <div id="secundario">Moderado <br> Imbituba, Santa Catarina<a class="ponto">•</a>
+    <a href="https://www.mozilla.org/pt-BR/">Me leve até lá!</a>.
     </div>
+
+    <div class="divider"></div>
+
+<div class="parent">
+    <div class="child">
+        <div id="textop">2,4 <a id="textoS">km</a> </div>
+        <div id="textoT">Extensão da trilha</div>
+    </div>
+    <div class="child">
+        <div id="textop">57 <a id="textoS">min</a> </div>
+        <div id="textoT">Duração</div>
+    </div>
+    <div class="child">
+        <div id="textop">138 <a id="textoS">m</a> </div>
+        <div id="textoT">Ganho de elevação</div>
+    </div>
+    <div class="child"></div>
+</div>
 </div>
 <div id="image-container">
 
@@ -71,9 +110,9 @@
     mapboxgl.accessToken = 'pk.eyJ1IjoibWFjaGphbyIsImEiOiJjbHI5cjBmNDUwNjJlMmpzcno3MHVoeTJ3In0.N9_idq-8oGg1Ay6SPqXPkw'; // Substitua com sua chave de acesso
 
     // Coordenadas dos pontos
-    var startCoord = [-48.654098, -28.238385];
-    var middleCoord = [-48.647151, -28.233473];
-    var endCoord = [-48.653389, -28.239079];
+    var startCoord = [-48.654181,-28.238339];
+    var middleCoord = [-48.646808,-28.233613];
+    var endCoord = [-48.653451,-28.239026];
 
     // Inicializar o mapa com estilo "outdoors"
     var map = new mapboxgl.Map({

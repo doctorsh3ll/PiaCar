@@ -12,6 +12,16 @@
         body { margin: 0; padding: 0; color: #203b04; background-color: #f8f8f8
         }
 
+        .border {
+            width: 100%;
+            height: 20px;
+            border-radius: 20px;
+            position: absolute;
+            transform: translateY(-180%);
+            background: #f8f8f8;
+            box-shadow: rgba(0, 0, 0, 0.06) -0px -5px 10px;
+        }
+
         .informacoes {
             width: 95%;
             height: 15vh;
@@ -85,6 +95,9 @@
 </head>
 <body>
 <div id="map"></div>
+
+<div class="border"></div>
+
 <div class="informacoes">
 <div id="principal">Trilha do Farol</div>
     <div id="secundario">Moderado <br> Imbituba, Santa Catarina<a class="ponto">•</a>

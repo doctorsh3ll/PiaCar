@@ -7,9 +7,10 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&family=Work+Sans:ital,wght@0,400;0,500;1,400;1,500&display=swap');
 
-        body { margin: 0; padding: 0; color:#142800}
+        body { margin: 0; padding: 0; color: #203b04
+        }
 
         .informacoes {
             width: 95%;
@@ -19,16 +20,18 @@
         }
 
         #principal {
-            font-size: 22pt;
-            font-family: "Rubik";
+            font-size: 26pt;
+            font-family: 'Work Sans', sans-serif;
+            font-weight: 500;
             position: relative;
             display: flex;
             margin-bottom: 3%;
         }
 
         #secundario {
-            font-size: 9pt;
-            font-family: "Arial";
+            font-size: 9.5pt;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 500;
             line-height: 1.4;
         }
 
@@ -44,13 +47,17 @@
             margin-right: 3%;
             margin-top: 3%;
             height: 8vh;
-            font-family: "Rubik";
+            font-family: 'Average Sans', sans-serif;
+        }
+
+        .href {
+            color: #416e14;
         }
 
         .ponto {margin: 3px;}
-        #textop {font-size: 20pt; margin-bottom: 1%; height: 32px}
-        #textoS {font-size: 14pt}
-        #textoT {font-size: 9pt; font-family: Arial}
+        #textop {font-size: 20pt; margin-bottom: 1%; height: 32px; font-family: 'Work Sans', sans-serif; font-weight: 500}
+        #textoS {font-size: 14pt; font-family: 'Work Sans', sans-serif; font-weight: 500}
+        #textoT {font-size: 9.5pt; font-family: 'Manrope', sans-serif;font-weight: 500;}
         .tipotrilha {height: 32px}
 
         #map {display: flex; position: relative; top: 0; bottom: 0; width: 100%; height: 40vh; margin-bottom: 7.5%}
@@ -81,7 +88,7 @@
 <div class="informacoes">
 <div id="principal">Trilha do Farol</div>
     <div id="secundario">Moderado <br> Imbituba, Santa Catarina<a class="ponto">•</a>
-    <a href="https://www.mozilla.org/pt-BR/">Me leve até lá!</a>.
+    <a class="href" href="https://www.mozilla.org/pt-BR/">Me leve até lá!</a>.
     </div>
 
     <div class="divider"></div>
@@ -100,7 +107,7 @@
         <div id="textoT">Ganho de elevação</div>
     </div>
     <div class="child">
-        <div id="textop"><svg class="tipotrilha" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 65.25 31.41">
+        <div id="textop"><svg class="tipotrilha" fill="#203b04" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 65.25 31.41">
             <path d="m32.63,0C16.91,0,0,3.71,0,11.86c0,6.5,10.68,10.14,22.96,11.39.65.06,1.31.12,1.96.18.65.06,1.31.09,1.96.12,1.9.12,3.83.18,5.75.18.83,0,1.66,0,2.49-.03l1.1-1.1c1.16-1.16,1.16-3.03,0-4.18l-.68-.68c-.95.06-1.9.06-2.91.06-1.96,0-3.83-.06-5.58-.15-.77-.06-1.51-.12-2.25-.18-.8-.06-1.6-.12-2.34-.24-10.68-1.19-16.16-4.09-16.52-5.31.44-1.66,9.34-5.99,26.69-5.99s26.07,4.24,26.69,5.93c-.5,1.45-7.21,4.8-20.08,5.69,1.04,1.84,1.04,4.09-.03,5.93,13.53-.89,26.04-4.6,26.04-11.63C65.25,3.71,48.35,0,32.63,0Z"/>
             <path d="m36.22,22.6l-1.1,1.1-6.85,6.82c-.56.59-1.33.89-2.08.89s-1.54-.3-2.11-.89c-1.16-1.16-1.16-3.03,0-4.18l5.84-5.84-2.88-2.85-2.46-2.46c-1.16-1.16-1.16-3.03,0-4.18.59-.59,1.33-.89,2.11-.89s1.51.3,2.11.89l6.73,6.73.68.68c1.16,1.16,1.16,3.03,0,4.18Z"/>
         </svg></div>
